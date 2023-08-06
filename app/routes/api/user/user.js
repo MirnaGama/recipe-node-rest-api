@@ -12,12 +12,6 @@ require('express-group-routes');
 router.group((router) => {
     router.use(authChecker.auth);    // * authorize()
 
-    router.get('/logout', async (req, res) => {
-        res.clearCookie('SessionCookie');
-        req.session.destroy;
-        res.redirect('/');
-    });
-
     router.post('/findByPk', authChecker.validateParams([
         {
             paramKey: 'user_id',
