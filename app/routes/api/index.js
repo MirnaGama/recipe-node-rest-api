@@ -17,4 +17,8 @@ router.use((req, res, next) => {
     next();
 });
 
+// Split up route handling
+router.use('/auth', require('./auth/auth.js'));
+router.use('/user', require('./user/user.js'));
+
 module.exports = router;
