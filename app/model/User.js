@@ -2,12 +2,12 @@ const {sequelizeConnect, Sequelize} = require('../config/db');
 const bcrypt = require('bcrypt');
 
 const User = sequelizeConnect.define('user', {
-    userId: {
+    id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true,
-        field: "user_id"
+        field: "id"
     },
     username: {
         type: Sequelize.STRING,

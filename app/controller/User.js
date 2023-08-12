@@ -29,12 +29,12 @@ class UsersController {
 
     update(user) {
         delete user.dsPassword;
-        return this.Users.update(user, { where: { userId: user.userId } }).then(result => defaultResponse(result))
+        return this.Users.update(user, { where: { id: user.id } }).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message, httpStatus.UNPROCESSABLE_ENTITY));
     }
 
     delete(user) {
-        return this.Users.destroy({ where: { userId: user.userId } }).then(result => defaultResponse(result))
+        return this.Users.destroy({ where: { id: user.id } }).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message, httpStatus.UNPROCESSABLE_ENTITY));
     }
 }
