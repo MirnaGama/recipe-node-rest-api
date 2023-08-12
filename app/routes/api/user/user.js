@@ -12,20 +12,20 @@ require('express-group-routes');
 router.group((router) => {
     router.use(authChecker.auth);    // * authorize()
 
-    router.post('/findByPk', authChecker.validateParams([
+    router.get('/findByPk', authChecker.validateParams([
         {
-            paramKey: 'user_id',
+            paramKey: 'id',
             required: true,
             type: 'number',
         },
     ]), async (req, res) => {
-        await UserController.getById(req.body.userId).then(response => {
+        await UserController.getById(req.body.id).then(response => {
             res.status(response.statusCode)
             res.json(response.data)
         });
     });
 
-    router.post('/findByWhere', async (req, res) => {
+    router.get('/findByWhere', async (req, res) => {
         const where = req.body;
         await UserController.getByWhere(where).then(response => {
             res.status(response.statusCode)
@@ -65,7 +65,7 @@ router.group((router) => {
 
     router.post('/update', authChecker.validateParams([
         {
-            paramKey: 'userId',
+            paramKey: 'id',
             required: true,
             type: 'number',
         },
@@ -93,7 +93,7 @@ router.group((router) => {
 
     router.post('/delete', authChecker.validateParams([
         {
-            paramKey: 'user_id',
+            paramKey: 'id',
             required: true,
             type: 'number',
         },
