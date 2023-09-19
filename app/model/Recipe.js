@@ -1,5 +1,6 @@
 const {sequelizeConnect, Sequelize} = require('../config/db');
 const User = require('./User.js');
+const RecipeIngredient = require('./RecipeIngredient.js');
 
 
 const Recipe = sequelizeConnect.define('recipe', {
@@ -19,17 +20,14 @@ const Recipe = sequelizeConnect.define('recipe', {
         type: Sequelize.STRING,
         allowNull: false,
         field: "imageURL"
-    },
-    ingredients: {
-        type: Sequelize.JSON,
-        allowNull: false,
-        field: "ingredients"
     }
-
 })
 
 // Create Foreign Key at User Table
 User.hasMany(Recipe);
 Recipe.belongsTo(User);
+
+Recipe.hasMany(RecipeIngredient);
+RecipeIngredient.belongsTo(Recipe);
 
 module.exports = Recipe;
