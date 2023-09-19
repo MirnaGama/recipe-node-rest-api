@@ -9,7 +9,7 @@ const Recipe = sequelizeConnect.define('recipe', {
         autoIncrement: true,
         allowNull: false,
         primaryKey: true,
-        field: "recipe_id"
+        field: "id"
     },
     label: {
         type: Sequelize.STRING,
