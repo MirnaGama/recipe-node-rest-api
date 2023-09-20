@@ -21,5 +21,6 @@ router.use((req, res, next) => {
 router.use('/auth', require('./auth/auth.js'));
 router.use('/user', require('./user/user.js'));
 router.use('/recipe', require('./recipe/recipe.js'));
+router.use('/recipe/category', require('./recipe/recipeCategory.js'));
 
 module.exports = router;
