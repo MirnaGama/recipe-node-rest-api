@@ -1,6 +1,7 @@
 const {sequelizeConnect, Sequelize} = require('../config/db');
 const User = require('./User.js');
 const RecipeIngredient = require('./RecipeIngredient.js');
+const RecipeCategory = require('./RecipeCategory');
 
 
 const Recipe = sequelizeConnect.define('recipe', {
@@ -29,5 +30,8 @@ Recipe.belongsTo(User);
 
 Recipe.hasMany(RecipeIngredient);
 RecipeIngredient.belongsTo(Recipe);
+
+RecipeCategory.hasMany(Recipe);
+Recipe.belongsTo(RecipeCategory);
 
 module.exports = Recipe;
