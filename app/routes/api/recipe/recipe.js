@@ -5,6 +5,10 @@ const Recipe = require('../../../model/Recipe.js'); // import
 const RecipesController = require('../../../controller/Recipe.js'); // import
 const RecipeController = new RecipesController(Recipe);
 
+const RecipeCategory = require('../../../model/RecipeCategory.js');
+const RecipeCategoriesController = require('../../../controller/RecipeCategory.js'); // import
+const RecipeCategoryController = new RecipeCategoriesController(RecipeCategory);
+
 require('express-group-routes');
 
 router.group((router) => {
@@ -30,6 +34,20 @@ router.group((router) => {
             res.status(response.statusCode)
             res.json(response.data)
         });
+    });
+
+    router.get('/findByCategory', async (req, res) => {
+        const where = req.body;
+
+        let categoryResponse = await RecipeCategoryController.getByWhere(where);
+        categoryResponse = JSON.parse(JSON.stringify(categoryResponse));
+
+        const {data} = categoryResponse;
+
+          await RecipeController.getByWhere({"recipeCategoryId": data[0].id }).then(RecipeResponse => {
+            res.status(RecipeResponse.statusCode)
+            res.json(RecipeResponse.data)
+        })
     });
 
     router.post('/create', async (req, res) => {
