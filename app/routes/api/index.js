@@ -22,6 +22,7 @@ router.use('/auth', require('./auth/auth.js'));
 router.use('/user', require('./user/user.js'));
 router.use('/recipe', require('./recipe/recipe.js'));
 router.use('/recipe/category', require('./recipe/recipeCategory.js'));
+router.use('/recipe/ingredient', require('./recipe/recipeIngredient.js'));
 router.use('/ingredient', require('./ingredient/ingredient.js'));
 router.use('/ingredient/category', require('./ingredient/ingredientCategory.js'));
 
