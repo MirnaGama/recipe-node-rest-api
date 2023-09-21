@@ -1,6 +1,12 @@
 const httpStatus = require('http-status');
+
 const defaultResponse = (data, statusCode = httpStatus.OK) => ({data, statusCode});
 const errorResponse = (message, statusCode = httpStatus.BAD_REQUEST) => defaultResponse({error: message}, statusCode);
+
+const Ingredient = require('../model/Ingredient');
+const Recipe = require('../model/Recipe');
+
+const associates = [Recipe, Ingredient]
 
 class RecipeIngredientController {
     constructor(RecipeIngredient) {
@@ -18,12 +24,12 @@ class RecipeIngredientController {
     }
 
     getByWhere(where){
-        return this.RecipeIngredient.findAll({ where: where }).then(result => defaultResponse(result))
+        return this.RecipeIngredient.findAll({ where: where, include: associates }).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message));
     }
 
     create(RecipeIngredient){
-        return this.RecipeIngredient.create(RecipeIngredient).then(result => defaultResponse(result))
+        return this.RecipeIngredient.create(RecipeIngredient,  {include: associates}).then(result => defaultResponse(result))
         .catch(error => errorResponse(error.message, httpStatus.UNPROCESSABLE_ENTITY));
     }
 
