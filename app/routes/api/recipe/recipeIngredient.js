@@ -2,8 +2,8 @@ var router = require('express').Router();
 const authChecker = require('../auth/authCheckerUtil.js');
 
 const RecipeIngredient = require('../../../model/RecipeIngredient.js'); // import
-const RecipeIngredientssController = require('../../../controller/RecipeIngredient.js'); // import
-const RecipeIngredientController = new RecipeIngredientssController(RecipeIngredient);
+const RecipeIngredientsController = require('../../../controller/RecipeIngredient.js'); // import
+const RecipeIngredientController = new RecipeIngredientsController(RecipeIngredient);
 
 const Recipe = require('../../../model/Recipe.js'); // import
 const RecipesController = require('../../../controller/Recipe.js'); // import
@@ -38,6 +38,8 @@ router.group((router) => {
 
         const {data} = recipeResponse
 
+        console.log(data)
+
         await RecipeIngredientController.getByWhere({"recipeId": data[0].id }).then(response => {
             res.status(response.statusCode)
             res.json(response.data)
@@ -52,7 +54,7 @@ router.group((router) => {
     });
 
     router.post('/create', async (req, res) => {
-        await RecipeIngredientController.create(req.body).then(async response => {
+        await RecipeIngredientController.create(req.body, {include: [Recipe, Ingredient]}).then(async response => {
             res.status(response.statusCode);
             res.json(response.data);
 
