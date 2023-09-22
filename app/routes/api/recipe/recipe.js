@@ -53,12 +53,12 @@ router.group((router) => {
     router.post('/create', async (req, res) => {
         let recipeBody = req.body;
         
-        let Recipe = {
+        let recipe = {
             'userId': req.session.user.id,
             ...recipeBody
         };
 
-        await RecipeController.create(Recipe).then(async response => {
+        await RecipeController.create(recipe).then(async response => {
             res.status(response.statusCode);
             res.json(response.data);
 
